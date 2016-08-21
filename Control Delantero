@@ -1,0 +1,25 @@
+#include <VirtualWire.h>
+
+void setup()
+{
+//Iniciamos el Serial y la comunicacion por radio
+Serial.begin(9600);
+Serial.write("Sistema encendido\n");
+vw_setup(2000);
+}
+void loop()
+{
+send("Encender");
+/* delay(100);
+send("Apagar");
+delay(100); */
+}
+
+//Funcion para enviar el mensaje
+void send (char *message)
+{
+vw_send((uint8_t *)message, strlen(message)); //Envia el mensaje
+vw_wait_tx(); //Espera hasta que se haya acabado de transmitir todo
+
+Serial.println(message); //Muestra el mensaje por Serial
+}
